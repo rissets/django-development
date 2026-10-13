@@ -1,0 +1,13 @@
+.venv/
+.env
+.env.*
+!.env.example
+!.env.production.example
+__pycache__/
+*.py[cod]
+*.sqlite3
+staticfiles/
+media/
+.ruff_cache/
+.coverage
+output/

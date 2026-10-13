@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Proyek · {{ app_name }}{% endblock %}
+{% block content %}
+<div class="page-heading"><div><h1>Proyek</h1><p class="muted">Kelola proyek yang dapat Anda akses.</p></div><a class="button-primary" href="{% url 'projects:create' %}">Buat proyek</a></div>
+<form method="get" class="filter-bar">
+  <div class="filter-search">{{ filters.q.label_tag }}{{ filters.q }}{{ filters.q.errors }}</div>
+  <div>{{ filters.status.label_tag }}{{ filters.status }}{{ filters.status.errors }}</div>
+  <button type="submit" class="button-secondary">Terapkan</button>
+  {% if request.GET %}<a href="{% url 'projects:list' %}" class="text-link">Reset</a>{% endif %}
+</form>
+{% if page_obj.object_list %}
+<div class="table-region" role="region" aria-label="Daftar proyek" tabindex="0">
+<table><caption class="sr-only">Proyek sesuai filter; {{ page_obj.paginator.count }} hasil</caption><thead><tr><th scope="col">Nama proyek</th><th scope="col">Status</th><th scope="col" class="date-column">Diperbarui</th><th scope="col"><span class="sr-only">Aksi</span></th></tr></thead>
+<tbody>{% for project in page_obj %}<tr><th scope="row"><a href="{% url 'projects:detail' project.pk %}">{{ project.name }}</a></th><td><span class="status status-{{ project.status }}">{{ project.get_status_display }}</span></td><td class="date-column">{{ project.updated_at|date:"d M Y, H:i" }}</td><td><a href="{% url 'projects:detail' project.pk %}" aria-label="Buka proyek {{ project.name }}">Buka</a></td></tr>{% endfor %}</tbody></table>
+</div>
+<nav class="pagination" aria-label="Halaman daftar"><span>{{ page_obj.paginator.count }} proyek · Halaman {{ page_obj.number }} dari {{ page_obj.paginator.num_pages }}</span><div>{% if page_obj.has_previous %}<a class="button-secondary" href="?{{ filter_query }}&amp;page={{ page_obj.previous_page_number }}">Sebelumnya</a>{% endif %}{% if page_obj.has_next %}<a class="button-secondary" href="?{{ filter_query }}&amp;page={{ page_obj.next_page_number }}">Berikutnya</a>{% endif %}</div></nav>
+{% else %}<section class="empty-state"><h2>{% if request.GET %}Tidak ada proyek yang cocok{% else %}Mulai dengan proyek pertama{% endif %}</h2><p>{% if request.GET %}Ubah pencarian atau reset filter untuk melihat proyek lain.{% else %}Buat proyek, lengkapi namanya, lalu aktifkan saat sudah siap.{% endif %}</p>{% if request.GET %}<a class="text-link" href="{% url 'projects:list' %}">Reset filter</a>{% else %}<a class="button-primary" href="{% url 'projects:create' %}">Buat proyek</a>{% endif %}</section>{% endif %}
+{% endblock %}

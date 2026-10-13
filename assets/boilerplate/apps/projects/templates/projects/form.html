@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}{% if project %}Edit proyek{% else %}Buat proyek{% endif %} · {{ app_name }}{% endblock %}
+{% block content %}
+<a class="text-link" href="{% if project %}{% url 'projects:detail' project.pk %}{% else %}{% url 'projects:list' %}{% endif %}">Kembali</a>
+<section class="form-page"><h1>{% if project %}Edit proyek{% else %}Buat proyek{% endif %}</h1><p class="muted">Nama membantu Anda menemukan proyek dalam daftar.</p>
+<form method="post" data-pending-form novalidate>{% csrf_token %}{{ form.non_field_errors }}{{ form.as_div }}<div class="form-actions"><button type="submit" class="button-primary">Simpan proyek</button><a class="button-secondary" href="{% if project %}{% url 'projects:detail' project.pk %}{% else %}{% url 'projects:list' %}{% endif %}">Batal</a></div></form></section>
+{% endblock %}

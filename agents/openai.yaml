@@ -1,0 +1,4 @@
+interface:
+  display_name: "Django Development"
+  short_description: "Django fullstack, REST API, dan admin Unfold"
+  default_prompt: "Gunakan $django-development untuk mengembangkan aplikasi Django sesuai versi proyek, dengan admin Unfold dan verifikasi alur pengguna."

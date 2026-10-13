@@ -1,0 +1,16 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+.ruff_cache/
+.pytest_cache/
+.coverage
+.env
+.env.*
+!.env.example
+!.env.production.example
+*.sqlite3
+staticfiles/
+media/
+output/
+.playwright-cli/
